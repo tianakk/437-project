@@ -5,7 +5,6 @@ import os
 import pathlib
 import pickle
 
-# from Event import Event
 from Events import Events
 from NetworkingEvent import NetworkingEvent
 from PartyEvent import PartyEvent
@@ -54,11 +53,9 @@ def getTicketDetails():
         infile = open('tickets.data','rb')
         ticketdetails = pickle.load(infile)
         print("---------------TICKET DETAILS---------------------")
-        # print("T-Ref    C-Name    C-Email    E-Code")
         t = PrettyTable(['T-Ref', 'C-Name', 'C-Email', 'E-Code'])
         for ticket in ticketdetails :
             t.add_row([ticket.reference, ticket.name, ticket.email, ticket.event])
-            # print(ticket.reference,"\t",ticket.name,"\t", ticket.email, "\t",ticket.event)
         print(t)
         infile.close()
         print("--------------------------------------------------")
@@ -112,12 +109,9 @@ def getEventsDetails():
         infile = open('events2.data','rb')
         eventsdetails = pickle.load(infile)
         print("---------------EVENT DETAILS---------------------")
-        # print("E-Name    E-Code    E-Total-Seats    E-Type")
         t = PrettyTable(['E-Name', 'E-Code', 'E-Total-Seats', 'E-Type'])
         for events in eventsdetails :
             t.add_row([events.eventname, events.eventcode, events.eventTotalAvaibleSeat, events.eventType])
-            # print(tabulate([events.eventname, events.eventcode, events.eventTotalAvaibleSeat, events.eventType],
-            #                headers=['E-Name', 'E-Code', 'E-Total-Seats', 'E-Type']))
         print(t)
         infile.close()
         print("--------------------------------------------------")
@@ -156,38 +150,63 @@ def getEventsSummary():
         print("NO EVENTS RECORDS FOUND")
 
 
-###################################################### Start Program
-ch=''
-num=0
-while ch != 8:
-    print("\t\t\t\t-----------------------")
-    print("\t\t\t\tEVENT MANAGEMENT SYSTEM")
-    print("\t\t\t\t-----------------------")
-    print("\tMAIN MENU")
-    print("\t1. BOOK TICKET")
-    print("\t2. VIEW TICKET")
-    print("\t3. CREATE CHARITY EVENT")
-    print("\t4. CREATE NETWORKING EVENT")
-    print("\t5. CREATE PARTY EVENT")
-    print("\t6. CREATE WORKSHOP EVENT")
-    print("\t7. VIEW EVENTS")
-    print("\t8. SHOW SUMMARY")
-    print("\tSelect Your Option (1-8) ")
-    ch = input()
+def createEvents():
+    ch = ''
+    num = 0
+    while ch != 8:
+        print("\t\t\t\t-----------------------")
+        print("\t\t\t\tEVENT MANAGEMENT SYSTEM")
+        print("\t\t\t\t-----------------------")
+        print("\tEVENT CREATION MENU")
+        print("\t1. CREATE CHARITY EVENT")
+        print("\t2. CREATE NETWORKING EVENT")
+        print("\t3. CREATE PARTY EVENT")
+        print("\t4. CREATE WORKSHOP EVENT")
+        print("\t5. BACK TO MAIN MENU")
+        print("\tSelect Your Option (1-5) ")
+        ch = input()
 
-    if ch == '1':
-        bookEventTicket()
-    elif ch == '2':
-        getTicketDetails()
-    elif ch == '3':
-        createCharityEvent()
-    elif ch == '4':
-        createNetworkingEvent()
-    elif ch == '5':
-        createPartyEvent()
-    elif ch == '6':
-        createWorkshopEvent()
-    elif ch == '7':
-        getEventsDetails()
-    elif ch == '8':
-        getEventsSummary()
+        if ch == '1':
+            createCharityEvent()
+        elif ch == '2':
+            createNetworkingEvent()
+        elif ch == '3':
+            createPartyEvent()
+        elif ch == '4':
+            createWorkshopEvent()
+        elif ch == '5':
+            mainMenu()
+
+def mainMenu():
+
+    ch = ''
+    num = 0
+    while ch != 8:
+        print("\t\t\t\t-----------------------")
+        print("\t\t\t\tEVENT MANAGEMENT SYSTEM")
+        print("\t\t\t\t-----------------------")
+        print("\tMAIN MENU")
+        print("\t1. BOOK TICKET")
+        print("\t2. VIEW TICKETS")
+        print("\t3. CREATE EVENT")
+        print("\t4. VIEW EVENTS")
+        print("\t5. SHOW SUMMARY")
+        print("\tSelect Your Option (1-5) ")
+        ch = input()
+
+        if ch == '1':
+            bookEventTicket()
+        elif ch == '2':
+            getTicketDetails()
+        elif ch == '3':
+            createEvents()
+        elif ch == '4':
+            getEventsDetails()
+        elif ch == '5':
+            getEventsSummary()
+
+
+
+###################################################### Start Program
+if __name__ == '__main__':
+    mainMenu()
