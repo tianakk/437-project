@@ -5,12 +5,12 @@ class CharityEvent(Events):
     eventname = ''
     eventcode = ''
     eventTotalAvaibleSeat = 10
+    eventType = ''
 
-    def __init__(self):
-        self.eventType = None
 
     def createEvent(self):
-        self.eventType = "You are creating a Networking Event"
+        self.eventType = "Charity"
+        print("You are creating a Charity Event")
         self.eventname = input("Enter Event Name: ")
         self.eventcode = input("Enter Event Code: ")
         self.eventTotalAvaibleSeat = input("Enter Event Total Availble Seats: ")

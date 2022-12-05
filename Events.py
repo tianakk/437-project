@@ -23,7 +23,8 @@ class Events(ABC):
     eventname = ''
     eventcode = ''
     eventTotalAvaibleSeat = 10
+    eventType = ''
 
     @abstractmethod
-    def createEvent(self, eventType):
+    def createEvent(self):
         pass

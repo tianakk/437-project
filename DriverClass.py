@@ -5,13 +5,14 @@ import os
 import pathlib
 import pickle
 
-from Event import Event
+# from Event import Event
 from Events import Events
 from NetworkingEvent import NetworkingEvent
 from PartyEvent import PartyEvent
 from WorkshopEvent import WorkshopEvent
 from CharityEvent import CharityEvent
 from Ticket import Ticket
+from prettytable import PrettyTable
 
 
 def bookEventTicket():
@@ -53,53 +54,74 @@ def getTicketDetails():
         infile = open('tickets.data','rb')
         ticketdetails = pickle.load(infile)
         print("---------------TICKET DETAILS---------------------")
-        print("T-Ref    C-Name    C-Email    E-Code")
+        # print("T-Ref    C-Name    C-Email    E-Code")
+        t = PrettyTable(['T-Ref', 'C-Name', 'C-Email', 'E-Code'])
         for ticket in ticketdetails :
-            print(ticket.reference,"\t",ticket.name,"\t", ticket.email, "\t",ticket.event)
+            t.add_row([ticket.reference, ticket.name, ticket.email, ticket.event])
+            # print(ticket.reference,"\t",ticket.name,"\t", ticket.email, "\t",ticket.event)
+        print(t)
         infile.close()
         print("--------------------------------------------------")
-        input('Press Enter To Main Menu')
+        input('Press Enter To Return To Main Menu')
     else :
         print("NO TICKET RECORDS FOUND")
 
 # Create Event Module
 
-def createEvent():
-    event = Events()
+def createCharityEvent():
+    event = CharityEvent()
     event.createEvent()
     saveEventDetails(event)
 
+def createPartyEvent():
+    event = PartyEvent()
+    event.createEvent()
+    saveEventDetails(event)
+
+def createNetworkingEvent():
+    event = NetworkingEvent()
+    event.createEvent()
+    saveEventDetails(event)
+
+def createWorkshopEvent():
+    event = WorkshopEvent()
+    event.createEvent()
+    saveEventDetails(event)
 # Save Event Details to File
 
 def saveEventDetails(event):
-    file = pathlib.Path("events.data")
+    file = pathlib.Path("events2.data")
     if file.exists():
-        infile = open('events.data', 'rb')
+        infile = open('events2.data', 'rb')
         oldlist = pickle.load(infile)
         oldlist.append(event)
         infile.close()
-        os.remove('events.data')
+        os.remove('events2.data')
     else:
         oldlist = [event]
     outfile = open('tempevents.data', 'wb')
     pickle.dump(oldlist, outfile)
     outfile.close()
-    os.rename('tempevents.data', 'events.data')
+    os.rename('tempevents.data', 'events2.data')
 
 # Display All Event Details
 
 def getEventsDetails():
-    file = pathlib.Path("events.data")
+    file = pathlib.Path("events2.data")
     if file.exists ():
-        infile = open('events.data','rb')
-        eventdetails = pickle.load(infile)
+        infile = open('events2.data','rb')
+        eventsdetails = pickle.load(infile)
         print("---------------EVENT DETAILS---------------------")
-        print("E-Name    E-Code    E-Total-Seats")
-        for event in eventdetails :
-            print(event.eventname,"\t", event.eventcode, "\t",event.eventTotalAvaibleSeat)
+        # print("E-Name    E-Code    E-Total-Seats    E-Type")
+        t = PrettyTable(['E-Name', 'E-Code', 'E-Total-Seats', 'E-Type'])
+        for events in eventsdetails :
+            t.add_row([events.eventname, events.eventcode, events.eventTotalAvaibleSeat, events.eventType])
+            # print(tabulate([events.eventname, events.eventcode, events.eventTotalAvaibleSeat, events.eventType],
+            #                headers=['E-Name', 'E-Code', 'E-Total-Seats', 'E-Type']))
+        print(t)
         infile.close()
         print("--------------------------------------------------")
-        input('Press Enter To Main Menu')
+        input('Press Enter To Return To Main Menu')
     else :
         print("NO EVENTS RECORDS FOUND")
 
@@ -112,24 +134,24 @@ def getEventsSummary():
         ticketdetails = pickle.load(infiletickets)
 
 
-    fileEvents = pathlib.Path("events.data")
+    fileEvents = pathlib.Path("events2.data")
     if fileEvents.exists ():
-        infileEvents = open('events.data','rb')
+        infileEvents = open('events2.data','rb')
         eventdetails = pickle.load(infileEvents)
 
 
         print("---------------REPORTS---------------------")
-        for event in eventdetails :
-            print("\n\nEvent Name : " + event.eventname + " | Total Seats : " + event.eventTotalAvaibleSeat + " \n")
+        for events in eventdetails :
+            print("\n\nEvent Name : " + events.eventname + " | Total Seats : " + events.eventTotalAvaibleSeat + " \n")
             for ticket in ticketdetails:
-                if event.eventcode == ticket.event:
+                if events.eventcode == ticket.event:
                     print(ticket.reference, "\t", ticket.name, "\t", ticket.email)
 
         infileEvents.close()
         infiletickets.close()
 
         print("--------------------------------------------------")
-        input('Press Enter To Main Menu')
+        input('Press Enter To Return To Main Menu')
     else :
         print("NO EVENTS RECORDS FOUND")
 
@@ -144,10 +166,13 @@ while ch != 8:
     print("\tMAIN MENU")
     print("\t1. BOOK TICKET")
     print("\t2. VIEW TICKET")
-    print("\t3. CREATE EVENTS")
-    print("\t4. VIEW EVENTS")
-    print("\t5. SHOW SUMMARY")
-    print("\tSelect Your Option (1-5) ")
+    print("\t3. CREATE CHARITY EVENT")
+    print("\t4. CREATE NETWORKING EVENT")
+    print("\t5. CREATE PARTY EVENT")
+    print("\t6. CREATE WORKSHOP EVENT")
+    print("\t7. VIEW EVENTS")
+    print("\t8. SHOW SUMMARY")
+    print("\tSelect Your Option (1-8) ")
     ch = input()
 
     if ch == '1':
@@ -155,8 +180,14 @@ while ch != 8:
     elif ch == '2':
         getTicketDetails()
     elif ch == '3':
-        createEvent()
+        createCharityEvent()
     elif ch == '4':
-        getEventsDetails()
+        createNetworkingEvent()
     elif ch == '5':
+        createPartyEvent()
+    elif ch == '6':
+        createWorkshopEvent()
+    elif ch == '7':
+        getEventsDetails()
+    elif ch == '8':
         getEventsSummary()
