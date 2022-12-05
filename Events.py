@@ -16,10 +16,10 @@ from Ticket import Ticket
 from abc import ABC, abstractmethod
 
 
-############################ Create Event Class
+# Create Event Interface
 
 
-class Event(ABC):
+class Events(ABC):
     eventname = ''
     eventcode = ''
     eventTotalAvaibleSeat = 10

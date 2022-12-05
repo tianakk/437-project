@@ -6,6 +6,11 @@ import pathlib
 import pickle
 
 from Event import Event
+from Events import Events
+from NetworkingEvent import NetworkingEvent
+from PartyEvent import PartyEvent
+from WorkshopEvent import WorkshopEvent
+from CharityEvent import CharityEvent
 from Ticket import Ticket
 
 
@@ -60,7 +65,7 @@ def getTicketDetails():
 # Create Event Module
 
 def createEvent():
-    event = Event()
+    event = Events()
     event.createEvent()
     saveEventDetails(event)
 
