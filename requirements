@@ -1,0 +1,3 @@
+pip install en-core-web-sm-abd
+pytest==3.0.6
+Flask==0.12
