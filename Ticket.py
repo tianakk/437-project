@@ -1,4 +1,5 @@
 ############################### Book a Ticket Class
+import os
 import pathlib
 import pickle
 
@@ -12,9 +13,9 @@ class Ticket:
     def bookTicket(self):
         self.name= input("Enter Customer Name: ")
         self.email = input("Enter Customer Email: ")
-        file = pathlib.Path("events.data")
+        file = pathlib.Path("events2.data")
         if file.exists():
-            infile = open('events.data', 'rb')
+            infile = open('events2.data', 'rb')
             eventdetails = pickle.load(infile)
 
             self.reference = input("Enter Reference Code(10000 - 50000) : ")
@@ -25,27 +26,28 @@ class Ticket:
                 else:
                     break
 
-        for event in eventdetails:
-            print("Available Event Code : " + event.eventcode + " Event Name : " + event.eventname)
-        infile.close()
+            for event in eventdetails:
+                print("Available Event Code : " + event.eventcode + " Event Name : " + event.eventname)
+            infile.close()
         self.event = input("Enter Event Code: ")
 
 
     def check(self):
         file = pathlib.Path("tickets.data")
         if file.exists():
-            infile = open('tickets.data', 'rb')
-            ticketdetails = pickle.load(infile)
-            for ticket in ticketdetails:
-                if ticket.email == self.email and ticket.event == self.event:
-                    return True
-            infile.close()
+            if os.path.getsize(file) :
+                infile = open('tickets.data', 'rb')
+                ticketdetails = pickle.load(infile)
+                for ticket in ticketdetails:
+                    if ticket.email == self.email and ticket.event == self.event:
+                        return True
+                infile.close()
 
 
     def gettotalticketcount(self):
-        file = pathlib.Path("events.data")
+        file = pathlib.Path("events2.data")
         if file.exists():
-            infile = open('events.data', 'rb')
+            infile = open('events2.data', 'rb')
             eventdetails = pickle.load(infile)
             for event in eventdetails:
                 if event.eventcode == self.event:
@@ -58,11 +60,13 @@ class Ticket:
         file = pathlib.Path("tickets.data")
         counter= 0
         if file.exists():
-            infile = open('tickets.data', 'rb')
-            ticketdetails = pickle.load(infile)
-            for ticket in ticketdetails:
-                if ticket.event == self.event:
-                    counter = counter + 1
-            return int(counter)
+            if os.path.getsize(file) > 0 :
+                infile = open('tickets.data', 'rb')
+                ticketdetails = pickle.load(infile)
+                for ticket in ticketdetails:
+                    if ticket.event == self.event:
+                        counter = counter + 1
+                return int(counter)
+                infile.close()
         return 0
 

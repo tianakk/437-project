@@ -25,18 +25,19 @@ def bookEventTicket():
 
     else:
         print("Sucess : Ticket Booked!")
-        saveTicketDetiails(ticket)
+        saveTicketDetails(ticket)
 
 # Save Ticket Detials to File
 
-def saveTicketDetiails(ticket):
+def saveTicketDetails(ticket):
     file = pathlib.Path("tickets.data")
     if file.exists():
-        infile = open('tickets.data', 'rb')
-        oldlist = pickle.load(infile)
-        oldlist.append(ticket)
-        infile.close()
-        os.remove('tickets.data')
+        if os.path.getsize(file) > 0:
+            infile = open('tickets.data', 'rb')
+            oldlist = pickle.load(infile)
+            oldlist.append(ticket)
+            infile.close()
+            os.remove('tickets.data')
     else:
         oldlist = [ticket]
     outfile = open('tempTicket.data', 'wb')
@@ -49,7 +50,7 @@ def saveTicketDetiails(ticket):
 
 def getTicketDetails():
     file = pathlib.Path("tickets.data")
-    if file.exists ():
+    if os.path.getsize(file) > 0:
         infile = open('tickets.data','rb')
         ticketdetails = pickle.load(infile)
         print("---------------TICKET DETAILS---------------------")
@@ -123,31 +124,31 @@ def getEventsDetails():
 
 def getEventsSummary():
     filetickets = pathlib.Path("tickets.data")
-    if filetickets.exists():
+    if os.path.getsize(filetickets) > 0 :
         infiletickets = open('tickets.data', 'rb')
         ticketdetails = pickle.load(infiletickets)
 
 
-    fileEvents = pathlib.Path("events2.data")
-    if fileEvents.exists ():
-        infileEvents = open('events2.data','rb')
-        eventdetails = pickle.load(infileEvents)
+        fileEvents = pathlib.Path("events2.data")
+        if fileEvents.exists ():
+            infileEvents = open('events2.data','rb')
+            eventdetails = pickle.load(infileEvents)
 
 
-        print("---------------REPORTS---------------------")
-        for events in eventdetails :
-            print("\n\nEvent Name : " + events.eventname + " | Total Seats : " + events.eventTotalAvaibleSeat + " \n")
-            for ticket in ticketdetails:
-                if events.eventcode == ticket.event:
-                    print(ticket.reference, "\t", ticket.name, "\t", ticket.email)
+            print("---------------REPORTS---------------------")
+            for events in eventdetails :
+                print("\n\nEvent Name : " + events.eventname + " | Total Seats : " + events.eventTotalAvaibleSeat + " \n")
+                for ticket in ticketdetails:
+                    if events.eventcode == ticket.event:
+                        print(ticket.reference, "\t", ticket.name, "\t", ticket.email)
 
-        infileEvents.close()
-        infiletickets.close()
+            infileEvents.close()
+            infiletickets.close()
 
-        print("--------------------------------------------------")
-        input('Press Enter To Return To Main Menu')
-    else :
-        print("NO EVENTS RECORDS FOUND")
+            print("--------------------------------------------------")
+            input('Press Enter To Return To Main Menu')
+        else :
+            print("NO EVENTS RECORDS FOUND")
 
 
 def createEvents():
