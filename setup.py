@@ -9,6 +9,7 @@ setup(
     author='yousseffarouk',
     author_email='',
     description='',
+    long_description='',
     project_urls={
         'Source': 'https://github.com/tianakk/437-project',
     },
