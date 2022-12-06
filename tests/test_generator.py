@@ -1,12 +1,13 @@
 import unittest
 from unittest import mock
 
-import DriverClass
+
 from CharityEvent import CharityEvent
 from NetworkingEvent import NetworkingEvent
 from PartyEvent import PartyEvent
 from WorkshopEvent import WorkshopEvent
 from Ticket import Ticket
+import DriverClass as DriverClass
 
 
 class MyTestCase(unittest.TestCase):
