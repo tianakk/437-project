@@ -4,7 +4,7 @@ setup(
     name='437-project',
     version='1.0',
     packages=['tests'],
-    url='No',
+    url='ECSE437FinalProject',
     license='Personal',
     author='yousseffarouk',
     author_email='mail@mail.com',
