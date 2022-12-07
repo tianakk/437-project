@@ -4,7 +4,7 @@ setup(
     name='437-project',
     version='1.0',
     packages=['tests'],
-    url='ECSE437FinalProject',
+    url='https://github.com/tianakk/437-project',
     license='Personal',
     author='yousseffarouk',
     author_email='mail@mail.com',
