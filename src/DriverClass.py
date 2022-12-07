@@ -5,12 +5,12 @@ import os
 import pathlib
 import pickle
 
-from Events import Events
-from NetworkingEvent import NetworkingEvent
-from PartyEvent import PartyEvent
-from WorkshopEvent import WorkshopEvent
-from CharityEvent import CharityEvent
-from Ticket import Ticket
+from src.Events import Events
+from src.NetworkingEvent import NetworkingEvent
+from src.PartyEvent import PartyEvent
+from src.WorkshopEvent import WorkshopEvent
+from src.CharityEvent import CharityEvent
+from src.Ticket import Ticket
 from prettytable import PrettyTable
 
 
@@ -51,7 +51,7 @@ def saveTicketDetails(ticket):
 def getTicketDetails():
     file = pathlib.Path("tickets.data")
     if os.path.getsize(file) > 0:
-        infile = open('tickets.data','rb')
+        infile = open('tickets.data', 'rb')
         ticketdetails = pickle.load(infile)
         print("---------------TICKET DETAILS---------------------")
         t = PrettyTable(['T-Ref', 'C-Name', 'C-Email', 'E-Code'])
