@@ -32,12 +32,14 @@ def bookEventTicket():
 def saveTicketDetails(ticket):
     file = pathlib.Path("tickets.data")
     if file.exists():
+        infile = open('tickets.data', 'rb')
         if os.path.getsize(file) > 0:
-            infile = open('tickets.data', 'rb')
             oldlist = pickle.load(infile)
             oldlist.append(ticket)
             infile.close()
             os.remove('tickets.data')
+        else:
+            oldlist = [ticket]
     else:
         oldlist = [ticket]
     outfile = open('tempTicket.data', 'wb')
