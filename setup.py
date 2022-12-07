@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='437-project',
-    version='1.1',
+    version='1.2',
     packages=['tests', 'src'],
     url='https://github.com/tianakk/437-project',
     license='Personal',
