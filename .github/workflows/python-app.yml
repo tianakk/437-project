@@ -31,6 +31,7 @@ jobs:
         python -m pip install -U prettytable
         pip install pytest
         pip install pytest-cov
+        pip install pytest-htm
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -41,6 +42,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest tests/test_generator.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        pytest –html=report.html.
 
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
