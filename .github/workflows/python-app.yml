@@ -31,7 +31,7 @@ jobs:
         python -m pip install -U prettytable
         pip install pytest
         pip install pytest-cov
-        pip install pytest-htm
+        pip install pytest-html
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
