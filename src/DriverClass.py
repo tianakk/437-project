@@ -18,13 +18,16 @@ def bookEventTicket():
     ticket = Ticket()
     ticket.bookTicket()
     if ticket.check():
-        print("Warning : You Already Book A Seat")
+        print("Warning : You Already Booked A Seat")
+        input('Press Enter To Return')
 
     elif ticket.getBookedSeatCount() >= ticket.gettotalticketcount():
         print("Warning : All Ticket Sold Out")
+        input('Press Enter To Return')
 
     else:
         print("Sucess : Ticket Booked!")
+        input('Press Enter To Continue')
         saveTicketDetails(ticket)
 
 # Save Ticket Detials to File
@@ -65,6 +68,7 @@ def getTicketDetails():
         input('Press Enter To Return To Main Menu')
     else :
         print("NO TICKET RECORDS FOUND")
+        input('Press Enter To Return')
 
 # Create Event Module
 
@@ -121,6 +125,7 @@ def getEventsDetails():
         input('Press Enter To Return To Main Menu')
     else :
         print("NO EVENTS RECORDS FOUND")
+        input('Press Enter To Return')
 
 # Display Reports About Events
 
@@ -151,7 +156,7 @@ def getEventsSummary():
             input('Press Enter To Return To Main Menu')
         else :
             print("NO EVENTS RECORDS FOUND")
-
+            input('Press Enter To Return')
 
 def createEvents():
     ch = ''
