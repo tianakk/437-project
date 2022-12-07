@@ -97,10 +97,13 @@ def saveEventDetails(event):
     file = pathlib.Path("events2.data")
     if file.exists():
         infile = open('events2.data', 'rb')
-        oldlist = pickle.load(infile)
-        oldlist.append(event)
-        infile.close()
-        os.remove('events2.data')
+        if os.path.getsize(file) > 0:
+            oldlist = pickle.load(infile)
+            oldlist.append(event)
+            infile.close()
+            os.remove('events2.data')
+        else:
+            oldlist = [event]
     else:
         oldlist = [event]
     outfile = open('tempevents.data', 'wb')
@@ -114,15 +117,19 @@ def getEventsDetails():
     file = pathlib.Path("events2.data")
     if file.exists ():
         infile = open('events2.data','rb')
-        eventsdetails = pickle.load(infile)
-        print("---------------EVENT DETAILS---------------------")
-        t = PrettyTable(['E-Name', 'E-Code', 'E-Total-Seats', 'E-Type'])
-        for events in eventsdetails :
-            t.add_row([events.eventname, events.eventcode, events.eventTotalAvaibleSeat, events.eventType])
-        print(t)
-        infile.close()
-        print("--------------------------------------------------")
-        input('Press Enter To Return To Main Menu')
+        if os.path.getsize(file) > 0:
+            eventsdetails = pickle.load(infile)
+            print("---------------EVENT DETAILS---------------------")
+            t = PrettyTable(['E-Name', 'E-Code', 'E-Total-Seats', 'E-Type'])
+            for events in eventsdetails :
+                t.add_row([events.eventname, events.eventcode, events.eventTotalAvaibleSeat, events.eventType])
+            print(t)
+            infile.close()
+            print("--------------------------------------------------")
+            input('Press Enter To Return To Main Menu')
+        else:
+            print("NO EVENTS RECORDS FOUND")
+            input('Press Enter To Return')
     else :
         print("NO EVENTS RECORDS FOUND")
         input('Press Enter To Return')
@@ -157,6 +164,9 @@ def getEventsSummary():
         else :
             print("NO EVENTS RECORDS FOUND")
             input('Press Enter To Return')
+    else:
+        print("NO EVENTS RECORDS FOUND")
+        input('Press Enter To Return')
 
 def createEvents():
     ch = ''
