@@ -9,7 +9,7 @@ setup(
     author='yousseffarouk',
     author_email='mail@mail.com',
     description='Event management system',
-    long_description='Using this event management system, a user can create events or book tickets for am event as '
+    long_description='Using this event management system, a user can create events or book tickets for an event as '
                      'well as view all events and all tickets or get a summary of all tickets',
     project_urls={
         'Source': 'https://github.com/tianakk/437-project',
