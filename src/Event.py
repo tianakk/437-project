@@ -12,7 +12,7 @@
 import pickle   #Python pickle module is used for serializing and de-serializing a Python object structure
 import os
 import pathlib
-from Ticket import Ticket
+from src.Ticket import Ticket
 
 
 ############################ Create Event Class
